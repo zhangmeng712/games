@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>EaselJS Example: Sharp</title>
+
+	<link href="http://localhost/gamedemo/EaselJS/examples/assets/demoStyles.css" rel="stylesheet" type="text/css"/>
+
+	<!-- Note: All core EaselJS classes are listed here: -->
+	<script type="text/javascript" src="http://code.createjs.com/createjs-2013.12.12.min.js"></script>
+	
+	<!-- We also provide hosted minified versions of all CreateJS libraries.
+	   http://code.createjs.com -->
+
+	
+</head>
+
+<body>
+
+<header id="header" class="EaselJS">
+	<h1><span class="text-product">Easel<strong>JS</strong></span> Sprite</h1>
+</header>
+
+<div class="canvasHolder">
+	<canvas id="testCanvas" width="960" height="400"></canvas>
+</div>
+
+
+<script>
+	(function () {
+		var convas = document.getElementById("testCanvas");
+		var stage = new createjs.Stage(convas);
+
+		//图形呀
+		var circle = new createjs.Shape();
+		circle.graphics.beginFill("#ff0000").drawCircle(200, 200, 25);
+
+		//生成图形
+		var rec_graphics = new createjs.Graphics().beginFill("#ff0000").drawRect(0, 0, 100, 100); 
+		var shape = new createjs.Shape(rec_graphics);
+
+		//cache使用？？
+		shape.cache(10, 10, 100, 100);
+		
+		stage.addChild(circle);
+		stage.addChild(shape);
+    	//Update stage will render next frame
+        stage.update();
+
+        //默认为20
+        createjs.Ticker.addEventListener("tick", handleTick);
+        createjs.Ticker.setFPS(2)
+        //怎么获得ticker
+	    function handleTick() {
+	     //Circle will move 10 units to the right.
+	        circle.x += 10;
+	        //Will cause the circle to wrap back
+	        if (circle.x > stage.canvas.width) { circle.x = 0; }
+	        shape.x = 100
+	        stage.update();
+	    }
+
+	})()
+	
+
+</script>
+</body>
+</html>
